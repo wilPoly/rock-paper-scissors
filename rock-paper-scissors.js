@@ -7,20 +7,49 @@ function computerPlay () {
 	switch (random()) {
 
 		case 0:
-			console.log("Rock");
-			break;
+			return "rock";
 		
 		case 1:
-			console.log("Paper");
-			break;
+			return "paper";
 		
 		case 2:
-			console.log("Scissors");
-			break;
+			return "scissors";
 		
 		default:
-			console.log("Random");
+			return "Random";
 	}
 }
 
-computerPlay();
+function playRound(playerSelection, computerSelection) {
+	playerSelection = playerSelection.toLowerCase();
+	let win = `You win ! ${playerSelection} beats ${computerSelection}`;
+	let lose = `You lose ! ${computerSelection} beats ${playerSelection}`;
+
+	if (playerSelection === computerSelection) {
+		return "Draw !"
+	}
+	else if (playerSelection === "rock" && computerSelection === "paper") {
+		return lose;
+	}
+	else if (playerSelection === "rock" && computerSelection === "scissors") {
+		return win;
+	}
+	else if (playerSelection === "paper" && computerSelection === "rock") {
+		return win;
+	}
+	else if (playerSelection === "paper" && computerSelection === "scissors") {
+		return lose;
+	}
+	else if (playerSelection === "scissors" && computerSelection === "rock") {
+		return lose;
+	}
+	else if (playerSelection === "scissors" && computerSelection === "paper") {
+		return win;
+	}
+}
+
+const playerSelection = "rock";
+const computerSelection = computerPlay();
+console.log(`You played ${playerSelection}`);
+console.log(`Computer played ${computerSelection}`);
+console.log(playRound(playerSelection, computerSelection));
