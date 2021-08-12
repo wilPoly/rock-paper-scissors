@@ -1,23 +1,6 @@
-function random () {
-	return Math.floor(Math.random() * 3)
-}
-
 function computerPlay () {
-	// more elegant with an array
-	switch (random()) {
-
-		case 0:
-			return "rock";
-		
-		case 1:
-			return "paper";
-		
-		case 2:
-			return "scissors";
-		
-		default:
-			return "Random";
-	}
+	const RPS = ["rock", "paper", "scissors"];
+	return RPS[Math.floor(Math.random() * 3)];
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -82,9 +65,3 @@ function game() {
 }
 
 game();
-
-// const playerSelection = "rock";
-// const computerSelection = computerPlay();
-// console.log(`You played ${playerSelection}`);
-// console.log(`Computer played ${computerSelection}`);
-// console.log(playRound(playerSelection, computerSelection));;
