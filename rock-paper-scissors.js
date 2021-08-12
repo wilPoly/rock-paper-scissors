@@ -3,7 +3,7 @@ function random () {
 }
 
 function computerPlay () {
-	// returns randomly "Rock", "Paper" or "Scissors"
+	// more elegant with an array
 	switch (random()) {
 
 		case 0:
@@ -25,25 +25,18 @@ function playRound(playerSelection, computerSelection) {
 	let win = `You win ! ${playerSelection} beats ${computerSelection}`;
 	let lose = `You lose ! ${computerSelection} beats ${playerSelection}`;
 
+	// refactor => group losing and winning conditions
 	if (playerSelection === computerSelection) {
 		return "Draw !"
 	}
-	else if (playerSelection === "rock" && computerSelection === "paper") {
+	else if ((playerSelection === "rock" && computerSelection === "paper") || 
+			(playerSelection === "paper" && computerSelection === "scissors") ||
+			(playerSelection === "scissors" && computerSelection === "rock")) {
 		return lose;
 	}
-	else if (playerSelection === "rock" && computerSelection === "scissors") {
-		return win;
-	}
-	else if (playerSelection === "paper" && computerSelection === "rock") {
-		return win;
-	}
-	else if (playerSelection === "paper" && computerSelection === "scissors") {
-		return lose;
-	}
-	else if (playerSelection === "scissors" && computerSelection === "rock") {
-		return lose;
-	}
-	else if (playerSelection === "scissors" && computerSelection === "paper") {
+	else if ((playerSelection === "rock" && computerSelection === "scissors") || 
+			(playerSelection === "paper" && computerSelection === "rock") || 
+			(playerSelection === "scissors" && computerSelection === "paper")) {
 		return win;
 	}
 }
@@ -80,11 +73,11 @@ function game() {
 		}
 
 	}
-	console.log(`Your score is ${playerScore}, the computer scored ${computerScore}`);
+	alert(`Your score is ${playerScore}, the computer scored ${computerScore}`);
 	if (playerScore > computerScore) {
-		console.log("You win !");
+		alert("You win !");
 	}
-	else { console.log("You lose !") }
+	else { alert("You lose !") }
 
 }
 
