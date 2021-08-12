@@ -48,8 +48,50 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
-const playerSelection = "rock";
-const computerSelection = computerPlay();
-console.log(`You played ${playerSelection}`);
-console.log(`Computer played ${computerSelection}`);
-console.log(playRound(playerSelection, computerSelection));
+function game() {
+	let rounds = 5;
+	let playerSelection;
+	let computerSelection;
+	let play;
+	let playerScore = 0;
+	let computerScore = 0;
+
+	while (rounds >=1) {
+		playerSelection = prompt("Rock, paper or scissors ?");
+		computerSelection = computerPlay();
+		alert(`The computer played ${computerSelection}`);
+		play = playRound(playerSelection, computerSelection);
+
+		if (play.includes("win")) {
+			playerScore += 1;
+			alert(play);
+			rounds -= 1;
+			console.log(rounds);
+		}
+		else if (play.includes("lose")) { 
+			alert(play);
+			computerScore += 1;
+			rounds -= 1;
+			console.log(rounds);
+		}
+		else { 
+			alert(play);
+			console.log(rounds);
+		}
+
+	}
+	console.log(`Your score is ${playerScore}, the computer scored ${computerScore}`);
+	if (playerScore > computerScore) {
+		console.log("You win !");
+	}
+	else { console.log("You lose !") }
+
+}
+
+game();
+
+// const playerSelection = "rock";
+// const computerSelection = computerPlay();
+// console.log(`You played ${playerSelection}`);
+// console.log(`Computer played ${computerSelection}`);
+// console.log(playRound(playerSelection, computerSelection));;
