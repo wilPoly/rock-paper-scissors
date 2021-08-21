@@ -4,63 +4,60 @@ function computerPlay () {
 }
 
 function playRound(playerSelection, computerSelection) {
-	playerSelection = playerSelection.toLowerCase();
 	let win = `You win ! ${playerSelection} beats ${computerSelection}`;
 	let lose = `You lose ! ${computerSelection} beats ${playerSelection}`;
+	const results = document.querySelector("#results");
 
-	// refactor => group losing and winning conditions
 	if (playerSelection === computerSelection) {
-		return "Draw !"
+		results.textContent = "Draw !";
 	}
 	else if ((playerSelection === "rock" && computerSelection === "paper") || 
 			(playerSelection === "paper" && computerSelection === "scissors") ||
 			(playerSelection === "scissors" && computerSelection === "rock")) {
-		return lose;
+		results.textContent = lose;
 	}
 	else if ((playerSelection === "rock" && computerSelection === "scissors") || 
 			(playerSelection === "paper" && computerSelection === "rock") || 
 			(playerSelection === "scissors" && computerSelection === "paper")) {
-		return win;
+		results.textContent = win;
 	}
 }
 
 function game() {
 	let rounds = 5;
-	let playerSelection;
-	let computerSelection;
-	let play;
 	let playerScore = 0;
 	let computerScore = 0;
+	const buttons = document.querySelectorAll("button");
+	const round = document.querySelector("#round");
+	const score = document.querySelector("#score");
+	buttons.forEach(button => button.addEventListener("click", () => {
+				playRound(button.id,computerPlay()
+				)}));
 
-	while (rounds >=1) {
-		playerSelection = prompt("Rock, paper or scissors ?");
-		computerSelection = computerPlay();
-		alert(`The computer played ${computerSelection}`);
-		play = playRound(playerSelection, computerSelection);
+	while (rounds >= 1) {
+		console.log(play);
 
-		if (play.includes("win")) {
+		if (score.includes("win")) {
 			playerScore += 1;
-			alert(play);
 			rounds -= 1;
-			console.log(rounds);
+			round.textContent = rounds;
 		}
-		else if (play.includes("lose")) { 
-			alert(play);
+		else if (score.includes("lose")) { 
 			computerScore += 1;
 			rounds -= 1;
-			console.log(rounds);
+			round.textContent = rounds;
 		}
 		else { 
-			alert(play);
-			console.log(rounds);
+			console.log(score);
+			round.textContent = rounds;
 		}
 
 	}
-	alert(`Your score is ${playerScore}, the computer scored ${computerScore}`);
-	if (playerScore > computerScore) {
-		alert("You win !");
-	}
-	else { alert("You lose !") }
+	// console.log(`Your score is ${playerScore}, the computer scored ${computerScore}`);
+	// if (playerScore > computerScore) {
+	// 	console.log("You win !");
+	// }
+	// else { console.log("You lose !") }
 
 }
 
