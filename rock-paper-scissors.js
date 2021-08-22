@@ -56,10 +56,20 @@ function game() {
 }
 
 function endGame() {
-	const interface = document.querySelector("div");
+	const interface = document.querySelectorAll("div");
 	// on end game, make interface invisible
+	interface.forEach(element => element.style.display = "none");
 	// add a button to start game again
+	const replayButton = document.createElement("button");
+	replayButton.setAttribute("name", "replay");
+	replayButton.textContent = "Play again?";
+	const body = document.querySelector("body");
+	body.appendChild(replayButton);
 	// on click, make interface visible AND reset score =>  relaunch game() OR startGame() ?
+	replayButton.addEventListener("click", () => {
+		game();
+		interface.forEach(element => element.style.display = "");
+	});
 }
 
 game();
