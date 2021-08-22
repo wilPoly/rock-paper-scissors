@@ -6,59 +6,60 @@ function computerPlay () {
 function playRound(playerSelection, computerSelection) {
 	let win = `You win ! ${playerSelection} beats ${computerSelection}`;
 	let lose = `You lose ! ${computerSelection} beats ${playerSelection}`;
-	const results = document.querySelector("#results");
 
 	if (playerSelection === computerSelection) {
-		results.textContent = "Draw !";
+		// results.textContent = "Draw !";
+		return "Draw !";
 	}
 	else if ((playerSelection === "rock" && computerSelection === "paper") || 
 			(playerSelection === "paper" && computerSelection === "scissors") ||
 			(playerSelection === "scissors" && computerSelection === "rock")) {
-		results.textContent = lose;
+		// results.textContent = lose;
+		return lose;
 	}
 	else if ((playerSelection === "rock" && computerSelection === "scissors") || 
 			(playerSelection === "paper" && computerSelection === "rock") || 
 			(playerSelection === "scissors" && computerSelection === "paper")) {
-		results.textContent = win;
+		// results.textContent = win;
+		return win;
 	}
 }
 
 function game() {
-	let rounds = 5;
+	const buttons = document.querySelectorAll("button");
+	const score = document.querySelector("#score");
+	const results = document.querySelector("#results");
 	let playerScore = 0;
 	let computerScore = 0;
-	const buttons = document.querySelectorAll("button");
-	const round = document.querySelector("#round");
-	const score = document.querySelector("#score");
+
 	buttons.forEach(button => button.addEventListener("click", () => {
-				playRound(button.id,computerPlay()
-				)}));
-
-	while (rounds >= 1) {
-		console.log(play);
-
-		if (score.includes("win")) {
+		results.textContent = playRound(button.id,computerPlay());
+		if (results.textContent.includes("win")) {
 			playerScore += 1;
-			rounds -= 1;
-			round.textContent = rounds;
+			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
 		}
-		else if (score.includes("lose")) { 
+		else if (results.textContent.includes("lose")) { 
 			computerScore += 1;
-			rounds -= 1;
-			round.textContent = rounds;
+			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
 		}
-		else { 
-			console.log(score);
-			round.textContent = rounds;
+		
+		if (computerScore === 5 || playerScore === 5) {
+			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
+			if (playerScore > computerScore) {
+				score.textContent += " You win !";
+			}
+			else { score.textContent += " You lose !" }
+			endGame();
 		}
+	}));
 
-	}
-	// console.log(`Your score is ${playerScore}, the computer scored ${computerScore}`);
-	// if (playerScore > computerScore) {
-	// 	console.log("You win !");
-	// }
-	// else { console.log("You lose !") }
+}
 
+function endGame() {
+	const interface = document.querySelector("div");
+	// on end game, make interface invisible
+	// add a button to start game again
+	// on click, make interface visible AND reset score =>  relaunch game() OR startGame() ?
 }
 
 game();
