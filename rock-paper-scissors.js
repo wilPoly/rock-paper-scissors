@@ -25,15 +25,16 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
-function game() {
-	const buttons = document.querySelectorAll("button");
+function game(playerScore = 0, computerScore = 0, results = "") {
+	const buttons = document.querySelectorAll(".buttons > button");
 	const score = document.querySelector("#score");
-	const results = document.querySelector("#results");
-	let playerScore = 0;
-	let computerScore = 0;
+	results = document.querySelector("#results");
+	// playerScore = 0;
+	// computerScore = 0;
+	// results.textContent = "";
 
 	buttons.forEach(button => button.addEventListener("click", () => {
-		results.textContent = playRound(button.id,computerPlay());
+		results = playRound(button.id,computerPlay());
 		if (results.textContent.includes("win")) {
 			playerScore += 1;
 			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
@@ -57,18 +58,15 @@ function game() {
 
 function endGame() {
 	const interface = document.querySelectorAll("div");
-	// on end game, make interface invisible
 	interface.forEach(element => element.style.display = "none");
-	// add a button to start game again
-	const replayButton = document.createElement("button");
-	replayButton.setAttribute("name", "replay");
-	replayButton.textContent = "Play again?";
-	const body = document.querySelector("body");
-	body.appendChild(replayButton);
+
+	const replayButton = document.querySelector("#replay");
+	replayButton.removeAttribute("style");
 	// on click, make interface visible AND reset score =>  relaunch game() OR startGame() ?
 	replayButton.addEventListener("click", () => {
-		game();
-		interface.forEach(element => element.style.display = "");
+		interface.forEach(element => element.removeAttribute("style"));
+		replayButton.style.display = "none";
+		game(0, 0, ""); // trying to reset game status
 	});
 }
 
