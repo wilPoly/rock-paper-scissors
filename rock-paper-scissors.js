@@ -25,27 +25,28 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
-function game(playerScore = 0, computerScore = 0, results = "") {
-	const buttons = document.querySelectorAll(".buttons > button");
+function game() {
 	const score = document.querySelector("#score");
-	results = document.querySelector("#results");
-	// playerScore = 0;
-	// computerScore = 0;
-	// results.textContent = "";
+	const results = document.querySelector("#results");
+
+	console.log(playerScore, computerScore);
 
 	buttons.forEach(button => button.addEventListener("click", () => {
-		results = playRound(button.id,computerPlay());
+		results.textContent = playRound(button.id,computerPlay());
 		if (results.textContent.includes("win")) {
 			playerScore += 1;
 			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
+			console.log(playerScore, computerScore);
 		}
 		else if (results.textContent.includes("lose")) { 
 			computerScore += 1;
 			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
+			console.log(playerScore, computerScore);
 		}
 		
 		if (computerScore === 5 || playerScore === 5) {
 			score.textContent = `Your score is ${playerScore}, the computer scored ${computerScore}`;
+			console.log(playerScore, computerScore);
 			if (playerScore > computerScore) {
 				score.textContent += " You win !";
 			}
@@ -53,21 +54,38 @@ function game(playerScore = 0, computerScore = 0, results = "") {
 			endGame();
 		}
 	}));
-
 }
 
-function endGame() {
-	const interface = document.querySelectorAll("div");
-	interface.forEach(element => element.style.display = "none");
-
-	const replayButton = document.querySelector("#replay");
-	replayButton.removeAttribute("style");
-	// on click, make interface visible AND reset score =>  relaunch game() OR startGame() ?
-	replayButton.addEventListener("click", () => {
-		interface.forEach(element => element.removeAttribute("style"));
-		replayButton.style.display = "none";
-		game(0, 0, ""); // trying to reset game status
+function disableButtons() {
+	buttons.forEach(button => {
+		button.setAttribute("disabled", "on");
+		button.setAttribute("autocomplete", "off");
 	});
 }
 
+function enableButtons() {
+	buttons.forEach(button => {
+		button.removeAttribute("disabled");
+	});
+}
+
+function endGame() {
+	const replayButton = document.querySelector("#replay");
+	const textInterface = document.querySelectorAll(".text > div");
+	
+	disableButtons();
+	replayButton.removeAttribute("style");
+
+	replayButton.addEventListener("click", () => {
+		playerScore = 0;
+		computerScore = 0;
+		textInterface.forEach(element => element.textContent = "");
+		replayButton.style.display = "none";
+		enableButtons();
+	});
+}
+
+const buttons = document.querySelectorAll(".buttons > button");
+let playerScore = 0;
+let computerScore = 0;
 game();
